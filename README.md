@@ -12,8 +12,9 @@ assert page.has_content?("Hello")
 ```
 
 but:
-  1) it's kinda ugly
-  2) you don't have meaningfull error messages.
+
+1. it's kinda ugly
+2. you don't have meaningfull error messages.
 
 With this project minitest gets all the good stuff.
 
