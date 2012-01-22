@@ -7,11 +7,13 @@ Capybara matchers support for minitest unit & spec
 Capybara has good support for RSpec. If you want to use it with minitest,
 you can of course write:
 
-    assert page.has_content?("Hello")
+```ruby
+assert page.has_content?("Hello")
+```
 
 but:
-1) it's kinda ugly
-2) you don't have meaningfull error messages.
+  1) it's kinda ugly
+  2) you don't have meaningfull error messages.
 
 With this project minitest gets all the good stuff.
 
@@ -19,34 +21,40 @@ With this project minitest gets all the good stuff.
 
 Add to Gemfile:
 
-    # Gemfile
-    group :test do
-      gem "minitest-matchers-capybara"
-    end
+```ruby
+# Gemfile
+group :test do
+  gem "minitest-matchers-capybara"
+end
+```
 
 Next, I like to create seperate test class for acceptance tests.
 Note, Rails 4.0 will support minitest/spec out of the box, so you would just
 subclass `ActiveSupport::TestCase` instead of `MiniTest::Spec.`
 
-    # test/test_helper.rb
-    require "capybara/rails"
+```ruby
+# test/test_helper.rb
+require "capybara/rails"
 
-    class AcceptanceTest < MiniTest::Spec
-      include Capybara::RSpecMatchers
-      include Capybara::DSL
-    end
+class AcceptanceTest < MiniTest::Spec
+  include Capybara::RSpecMatchers
+  include Capybara::DSL
+end
+```
 
 Finally, you can use it like this:
 
-    # test/acceptance/home_test.rb
-    require "test/test_helper.rb"
+```ruby
+# test/acceptance/home_test.rb
+require "test/test_helper.rb"
 
-    class HomeTest < AcceptanceTest
-      it "home test" do
-        visit "/"
-        must_have_content "Homepage"
-      end
-    end
+class HomeTest < AcceptanceTest
+  it "home test" do
+    visit "/"
+    must_have_content "Homepage"
+  end
+end
+```
 
 ## License
 
