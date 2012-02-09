@@ -1,4 +1,4 @@
-# minitest-matchers-capybara
+# minitest-capybara
 
 Capybara matchers support for minitest unit & spec
 

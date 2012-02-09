@@ -3,10 +3,8 @@ require "capybara/dsl"
 require "capybara/rspec/matchers"
 
 module Minitest
-  module Matchers
-    module Capybara
-      VERSION = "0.0.1"
-    end
+  module Capybara
+    VERSION = "0.0.1"
   end
 end
 

@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "minitest-matchers-capybara"
+require "minitest-capybara"
 
 Gem::Specification.new do |s|
-  s.name        = "minitest-matchers-capybara"
-  s.version     = Minitest::Matchers::Capybara::VERSION
+  s.name        = "minitest-capybara"
+  s.version     = Minitest::Capybara::VERSION
   s.authors     = ["Wojciech Mach"]
   s.email       = ["wojtek@wojtekmach.pl"]
   s.homepage    = ""
   s.summary     = %q{Capybara matchers support for minitest unit and spec}
   s.description = s.summary
 
-  s.rubyforge_project = "minitest-matchers-capybara"
+  s.rubyforge_project = "minitest-capybara"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
