@@ -25,7 +25,7 @@ Add to Gemfile:
 ```ruby
 # Gemfile
 group :test do
-  gem "minitest-matchers-capybara"
+  gem "minitest-capybara"
 end
 ```
 
