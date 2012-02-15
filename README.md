@@ -47,7 +47,7 @@ Finally, you can use it like this:
 
 ```ruby
 # test/acceptance/home_test.rb
-require "test/test_helper"
+require "test_helper"
 
 class HomeTest < AcceptanceTest
   it "home test" do
