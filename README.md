@@ -57,6 +57,33 @@ class HomeTest < AcceptanceTest
 end
 ```
 
+## Capybara drivers
+
+Switching drivers is easy with [minitest-metadata]:
+
+  [minitest-metadata]: https://github.com/wojtekmach/minitest-metadata
+
+```ruby
+require 'minitest-metadata'
+
+class AcceptanceTest
+  before do
+    if metadata[:js]
+      Capybara.current_driver = Capybara.javascript_driver
+    else
+      Capybara.current_driver = Capybara.default_driver
+    end
+  end
+end
+
+class HomeTest < AcceptanceTest
+  it "home with ajax", js: true do
+    visit "/"
+    must_have_content "AJAX enabled..."
+  end
+end
+```
+
 ## License
 
 (The MIT License)
