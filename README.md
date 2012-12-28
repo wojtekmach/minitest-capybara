@@ -36,6 +36,7 @@ subclass `ActiveSupport::TestCase` instead of `MiniTest::Spec.`
 ```ruby
 # test/test_helper.rb
 require "capybara/rails"
+require "capybara/rspec/matchers"
 
 class AcceptanceTest < MiniTest::Spec
   include Capybara::RSpecMatchers
