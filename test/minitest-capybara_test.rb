@@ -1,6 +1,4 @@
-require "rack"
-require "minitest/matchers"
-require "minitest-matchers-capybara"
+require "minitest-capybara"
 require "minitest/autorun"
 
 describe "test" do

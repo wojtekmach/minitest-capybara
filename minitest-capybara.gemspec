@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "minitest-matchers", ">= 1.2"
   s.add_dependency "capybara", ">= 1.0"
+
+  s.add_runtime_dependency "rake"
 end
