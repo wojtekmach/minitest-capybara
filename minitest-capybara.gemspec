@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency "minitest-matchers", "~> 1.2"
-  s.add_dependency "capybara", "~> 1.0"
+  s.add_dependency "capybara", "~> 2.0"
 
   s.add_runtime_dependency "rake"
+  s.add_runtime_dependency "minitest", "~> 4.0"
 end

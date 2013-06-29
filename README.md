@@ -4,8 +4,9 @@ Capybara matchers support for minitest unit & spec
 
 ## Why?
 
-Capybara has good support for RSpec. If you want to use it with minitest,
-you can of course write:
+Capybara has good support for RSpec.
+
+If you want to use it with minitest, you can of course write:
 
 ```ruby
 assert page.has_content?("Hello")
@@ -20,6 +21,8 @@ With this project minitest gets all the good stuff.
 
 ## Usage
 
+See example app: https://github.com/wojtekmach/minitest-capybara-example
+
 Add to Gemfile:
 
 ```ruby
@@ -30,16 +33,25 @@ end
 ```
 
 Next, I like to create seperate test class for acceptance tests.
-Note, Rails 4.0 will support minitest/spec out of the box, so you would just
-subclass `ActiveSupport::TestCase` instead of `MiniTest::Spec.`
 
 ```ruby
 # test/test_helper.rb
 require "capybara/rails"
 
-class AcceptanceTest < MiniTest::Spec
-  include Capybara::RSpecMatchers
+# for just minitest/unit
+class AcceptanceTest < Minitest::Unit::TestCase
   include Capybara::DSL
+  include Minitest::Capybara::Assertions
+
+  def teardown
+    Capybara.reset_session!
+    Capybara.use_default_driver
+  end
+end
+
+# for minitest/spec
+class AcceptanceSpec < AcceptanceTest
+  extend Minitest::Spec::DSL
 end
 ```
 
@@ -49,10 +61,24 @@ Finally, you can use it like this:
 # test/acceptance/home_test.rb
 require "test_helper"
 
-class HomeTest < AcceptanceTest
+class HomeTest < AcceptanceSpec
   it "home test" do
     visit "/"
-    must_have_content "Homepage"
+
+    assert_content "Homepage"
+    page.must_have_content "Homepage"
+
+    within ".login" do
+      refute_content "Signed in as"
+      page.wont_have_content "Signed in as"
+    end
+
+    assert_link "Sign in"
+    assert_link find(".login"), "Sign in"
+    find(".login").must_have_link("Sign in")
+
+    assert_selector 'li:first', text: "Item 1"
+    page.must_have_selector 'li:first', text: "Item 1"
   end
 end
 ```
@@ -66,7 +92,7 @@ Switching drivers is easy with [minitest-metadata]:
 ```ruby
 require 'minitest-metadata'
 
-class AcceptanceTest
+class AcceptanceSpec
   before do
     if metadata[:js]
       Capybara.current_driver = Capybara.javascript_driver
@@ -76,10 +102,10 @@ class AcceptanceTest
   end
 end
 
-class HomeTest < AcceptanceTest
+class HomeTest < AcceptanceSpec
   it "home with ajax", js: true do
     visit "/"
-    must_have_content "AJAX enabled..."
+    page.must_have_content "AJAX enabled..."
   end
 end
 ```
