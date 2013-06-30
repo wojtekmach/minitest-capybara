@@ -43,7 +43,7 @@ require "capybara/rails"
 # for just minitest/unit
 class AcceptanceTest < Minitest::Unit::TestCase
   include Capybara::DSL
-  include Minitest::Capybara::Assertions
+  include Capybara::Assertions
 
   def teardown
     Capybara.reset_session!
