@@ -1,13 +1,10 @@
-require "minitest/autorun"
-
-require "capybara"
-require "minitest/capybara"
+require 'test_helper'
 
 Capybara.app = lambda { |env| [200, {}, "<div><h1>foo</h1><a href='/'>bar</a></div>"] }
 
 describe "app" do
   include Capybara::DSL
-  include Minitest::Capybara::Assertions
+  include Capybara::Assertions
 
   before do
     visit "/"
