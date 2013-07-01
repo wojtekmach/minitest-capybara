@@ -1,5 +1,3 @@
-require "minitest/capybara"
-
 module Capybara
   module Assertions
     def self.included(base)

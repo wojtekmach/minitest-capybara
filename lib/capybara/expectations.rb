@@ -1,4 +1,3 @@
-require "minitest/capybara"
 require "minitest/spec"
 
 module Capybara
