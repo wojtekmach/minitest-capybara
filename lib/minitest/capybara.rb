@@ -7,9 +7,11 @@ module Minitest
     @@refutations = @@assertions.grep(/^no_/)
     @@assertions = (@@assertions - @@refutations).sort
     @@refutations = @@refutations.map { |s| s.match(/^no_(.*)/)[1] }.sort
+
     def self.assertions
       @@assertions
     end
+
     def self.refutations
       @@refutations
     end
