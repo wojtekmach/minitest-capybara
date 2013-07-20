@@ -1,7 +1,7 @@
 require "minitest/capybara/version"
 require "capybara"
 
-module Minitest
+module MiniTest
   module Capybara
     @@assertions = ::Capybara::Session::NODE_METHODS.grep(/^has_/).map { |s| s.to_s.match(/^has_(.*?)\?/)[1] }
     @@refutations = @@assertions.grep(/^no_/)
@@ -23,7 +23,7 @@ require "capybara/assertions"
 require "capybara/expectations"
 
 # :stopdoc:
-module Minitest
+module MiniTest
   module Capybara
     def self.const_missing const
       if :Assertions == const
