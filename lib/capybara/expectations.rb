@@ -246,3 +246,7 @@ end
 class Capybara::Node::Base
   include Capybara::Expectations unless ENV["MT_NO_EXPECTATIONS"]
 end
+
+class Capybara::Node::Simple
+  include Capybara::Expectations unless ENV["MT_NO_EXPECTATIONS"]
+end

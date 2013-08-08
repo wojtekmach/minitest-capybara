@@ -6,13 +6,13 @@ module Capybara
 
     def assert_text(*args)
       node, *args = prepare_args(args)
-      assert has_text?(*args), message { "Expected to include #{args.first.inspect}" }
+      assert node.has_text?(*args), message { "Expected to include #{args.first.inspect}" }
     end
     alias_method :assert_content, :assert_text
 
     def refute_text(*args)
       node, *args = prepare_args(args)
-      assert has_no_text?(*args), message { "Expected not to include #{args.first.inspect}" }
+      assert node.has_no_text?(*args), message { "Expected not to include #{args.first.inspect}" }
     end
     alias_method :assert_no_text, :refute_text
     alias_method :refute_content, :refute_text
@@ -283,7 +283,8 @@ module Capybara
     private
 
     def prepare_args(args)
-      if args.first.is_a?(Capybara::Session) || args.first.kind_of?(Capybara::Node::Base)
+      if args.first.is_a?(Capybara::Session) || args.first.kind_of?(Capybara::Node::Base) ||
+          args.first.is_a?(Capybara::Node::Simple)
         args
       else
         [page, *args]
