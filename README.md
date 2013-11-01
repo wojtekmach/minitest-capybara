@@ -34,7 +34,24 @@ group :test do
 end
 ```
 
-Next, I like to create seperate test class for acceptance tests.
+```ruby
+# features/my_feature.rb
+require 'test_helper'
+
+feature "My Super Feature" do
+  given(:lion) { ... }
+
+  background do
+    visit "/feature"
+  end
+
+  scenario "this awesome feature" do
+    page.must_have_content("Awesome Feature")
+  end
+end
+```
+
+Or if you prefer to create seperate test class for acceptance tests.
 
 ```ruby
 # test/test_helper.rb
@@ -57,7 +74,7 @@ class AcceptanceSpec < AcceptanceTest
 end
 ```
 
-Finally, you can use it like this:
+and you can use it like this:
 
 ```ruby
 # test/acceptance/home_test.rb

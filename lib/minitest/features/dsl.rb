@@ -2,7 +2,7 @@ module Minitest
   module Features
     module DSL
 
-      include AcceptanceSpec 
+      include AcceptanceSpec
 
       ##
       # describe is 'defined' in Object
