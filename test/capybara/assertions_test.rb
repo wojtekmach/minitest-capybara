@@ -11,23 +11,14 @@ describe "Assertions" do
   end
 
   it "defines all the assertions that Capybara does" do
-    Minitest::Capybara.assertions.each do |assertion|
-      assert self.respond_to?("assert_#{assertion}"),
-             "The assertion assert_#{assertion} is not defined."
-    end
+    assert_(:assertions)
   end
 
   it "defines all the refutations that Capybara does" do
-    Minitest::Capybara.refutations.each do |refutation|
-      assert self.respond_to?("refute_#{refutation}"),
-             "The assertion refute_#{refutation} is not defined."
-    end
+   refute_(:refutations)
   end
 
   it "defines all the negative assertions that Capybara does" do
-    Minitest::Capybara.refutations.each do |refutation|
-      assert self.respond_to?("assert_no_#{refutation}"),
-             "The assertion assert_no_#{refutation} is not defined."
-    end
+   assert_no_(:refutations)
   end
 end
