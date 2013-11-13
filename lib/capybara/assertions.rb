@@ -1,57 +1,74 @@
 module Capybara
   module Assertions
+
     def self.included(base)
       raise "Make sure to include Capybara::Minitest::Assertions after Capybara::DSL" unless base < Capybara::DSL
     end
 
     def assert_text(*args)
-      node, *args = prepare_args(args)
-      assert node.has_text?(*args), message { "Expected to include #{args.first.inspect}" }
+      assert has?("text", *args, "Expected")
     end
     alias_method :assert_content, :assert_text
 
     def refute_text(*args)
-      node, *args = prepare_args(args)
-      assert node.has_no_text?(*args), message { "Expected not to include #{args.first.inspect}" }
+      assert has?("no_text", *args, "Expected not")
     end
     alias_method :assert_no_text, :refute_text
     alias_method :refute_content, :refute_text
     alias_method :assert_no_content, :refute_text
 
     def assert_selector(*args)
-      node, *args = prepare_args(args)
-      node.assert_selector(*args)
-    rescue Capybara::ExpectationNotMet => e
-      assert false, e.message
+      rescuer { node_assertions(:assert_selector, *args) }
     end
 
     def refute_selector(*args)
-      node, *args = prepare_args(args)
-      node.assert_no_selector(*args)
-    rescue Capybara::ExpectationNotMet => e
-      assert false, e.message
+      rescuer { node_assertions(:assert_no_selector, *args) }
     end
     alias_method :assert_no_selector, :refute_selector
 
-    ruby = ""
-    (MiniTest::Capybara.assertions - %w[text content selector]).each do |assertion|
-      ruby << <<-RUBY
-        def assert_#{assertion}(*args)
-          node, *args = prepare_args(args)
-          assert node.has_#{assertion}?(*args), message { Capybara::Helpers.failure_message(*args) }
-        end
-      RUBY
+    ##
+    # TODO: Extract this into a module
+    #
+    # Methods to be removed.
+    #
+    RMV_METHODS = %w{ text content selector }
+
+    ##
+    # Class Object method to remove specified methods
+    # and return the rest.
+    # Pass the given block to map( &block ), it is basically
+    # the same as doing this:
+    # methods.map { |m| ... }
+    #
+    # See Ruby to_proc for more information
+    #
+    def self.get_methods(method, &block)
+      (Minitest::Capybara.send(method) - RMV_METHODS).map(&block)
     end
-    (MiniTest::Capybara.refutations - %w[text content selector]).each do |refutation|
-      ruby << <<-RUBY
-        def refute_#{refutation}(*args)
-          node, *args = prepare_args(args)
-          assert node.has_no_#{refutation}?(*args), message { Capybara::Helpers.failure_message(*args) }
-        end
-        alias_method :assert_no_#{refutation}, :refute_#{refutation}
-      RUBY
+
+    ##
+    # Gets Minitest::Capybara.assertions methods
+    # define new methods using those method names
+    #
+    get_methods(:assertions) do |assertion|
+      define_method("assert_#{assertion}") do |*args|
+        assert!("has_#{assertion}?", *args)
+      end
     end
-    class_eval(ruby)
+
+    ##
+    # Gets Minitest::Capybara.refutations methods
+    # define new methods using those method names
+    #
+    get_methods(:refutations) do |refutation|
+      method_name = "refute_#{refutation}"
+
+      define_method(method_name) do |*args|
+        assert!("has_no_#{refutation}?", *args)
+      end
+
+      alias_method("assert_no_#{refutation}", method_name)
+    end
 
     ##
     # Assertion that there is button
@@ -282,13 +299,52 @@ module Capybara
 
     private
 
-    def prepare_args(args)
-      if args.first.is_a?(Capybara::Session) || args.first.kind_of?(Capybara::Node::Base) ||
-          args.first.is_a?(Capybara::Node::Simple)
-        args
-      else
-        [page, *args]
+    ##
+    # Self explanatory
+    #
+    def rescuer
+      begin
+        yield
+      rescue Capybara::ExpectationNotMet => e
+        assert false, e.message
       end
     end
+
+    def assert!(method, *args)
+      node, *args = prepare_args(args)
+      assert node.send(method, *args, fail_msg(*args) )
+    end
+
+    def fail_msg(args)
+      message { Capybara::Helpers.failure_message(*args) }
+    end
+
+    ##
+    # Returns args when args.first is a constant
+    # see is_constant? for specified of Constants.
+    #
+    def prepare_args(args)
+      is_constant?(args.first) ? args : [page, *args]
+    end
+
+    def is_constant?(args)
+      args.is_a?(Capybara::Node::Simple) ||
+      args.is_a?(Capybara::Node::Base) ||
+      args.is_a?(Capybara::Session)
+    end
+
+    def has?(method, *args, msg)
+      method = "has_#{method}?"
+      node, *args = prepare_args(args)
+
+      assert(node.send(method, *args),
+        message { "#{msg} to include #{args.first.inspect}" })
+    end
+
+    def node_assertions(method_name, *args)
+      node, *args = prepare_args(args)
+      node.send(method_name, *args)
+    end
+
   end
 end
