@@ -5,10 +5,10 @@ module Minitest
       include AcceptanceSpec
 
       ##
-      # describe is 'defined' in Object
-      # therefore it is available anywhere
-      # so that allows us to simply
-      # alias feature to describe.
+      # RSpec 'describe' is defined in Object
+      # therefore it is available anywhere so that
+      # allows us to simply alias feature to describe.
+      #
       alias :feature :describe
 
     end
@@ -16,7 +16,7 @@ module Minitest
 
   module Spec::DSL
     ##
-    # Pure simple old Ruby#Module alias method
+    # Pure simple old Ruby code.
     #
     alias :scenario :it
     alias :background :before

@@ -2,6 +2,7 @@ require "minitest/spec"
 
 module Capybara
   module Expectations
+
     MiniTest::Capybara.assertions.each do |assertion|
       infect_an_assertion "assert_#{assertion}", "must_have_#{assertion}", :reverse
     end

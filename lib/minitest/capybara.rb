@@ -3,10 +3,15 @@ require "capybara"
 
 module MiniTest
   module Capybara
-    @@assertions = ::Capybara::Session::NODE_METHODS.grep(/^has_/).map { |s| s.to_s.match(/^has_(.*?)\?/)[1] }
+    @@assertions = ::Capybara::Session::NODE_METHODS.grep(/^has_/).
+      map { |s| s.to_s.match(/^has_(.*?)\?/)[1] }
+
     @@refutations = @@assertions.grep(/^no_/)
     @@assertions = (@@assertions - @@refutations).sort
-    @@refutations = @@refutations.map { |s| s.match(/^no_(.*)/)[1] }.sort
+
+    @@refutations = @@refutations.map { |s|
+      s.match(/^no_(.*)/)[1]
+    }.sort
 
     def self.assertions
       @@assertions
@@ -25,6 +30,7 @@ require "capybara/expectations"
 # :stopdoc:
 module MiniTest
   module Capybara
+
     def self.const_missing const
       if :Assertions == const
         warn "Minitest::Capybara::Assertions is deprecated. Please use Capybara::Assertions instead."
@@ -33,5 +39,6 @@ module MiniTest
         super const
       end
     end
+
   end
 end
