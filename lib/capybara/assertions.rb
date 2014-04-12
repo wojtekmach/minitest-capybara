@@ -34,7 +34,7 @@ module Capybara
     alias_method :assert_no_selector, :refute_selector
 
     ruby = ""
-    (MiniTest::Capybara.assertions - %w[text content selector]).each do |assertion|
+    (Minitest::Capybara.assertions - %w[text content selector]).each do |assertion|
       ruby << <<-RUBY
         def assert_#{assertion}(*args)
           node, *args = prepare_args(args)
@@ -42,7 +42,7 @@ module Capybara
         end
       RUBY
     end
-    (MiniTest::Capybara.refutations - %w[text content selector]).each do |refutation|
+    (Minitest::Capybara.refutations - %w[text content selector]).each do |refutation|
       ruby << <<-RUBY
         def refute_#{refutation}(*args)
           node, *args = prepare_args(args)

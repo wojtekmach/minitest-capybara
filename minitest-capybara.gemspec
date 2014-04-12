@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "capybara", "~> 2.1.0"
 
   s.add_runtime_dependency "rake"
-  s.add_runtime_dependency "minitest", "~> 4.0"
+  s.add_runtime_dependency "minitest", "~> 5.0"
 end

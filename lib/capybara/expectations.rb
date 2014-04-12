@@ -2,11 +2,11 @@ require "minitest/spec"
 
 module Capybara
   module Expectations
-    MiniTest::Capybara.assertions.each do |assertion|
+    Minitest::Capybara.assertions.each do |assertion|
       infect_an_assertion "assert_#{assertion}", "must_have_#{assertion}", :reverse
     end
 
-    MiniTest::Capybara.refutations.each do |refutation|
+    Minitest::Capybara.refutations.each do |refutation|
       infect_an_assertion "refute_#{refutation}", "wont_have_#{refutation}", :reverse
     end
 
