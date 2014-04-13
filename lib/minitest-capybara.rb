@@ -1,2 +1,2 @@
-require 'minitest/test'
+require 'minitest'
 require 'minitest/capybara'
