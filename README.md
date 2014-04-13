@@ -21,6 +21,10 @@ but:
 
 With this project minitest gets all the good stuff.
 
+## Rails integration
+
+Check out [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-capybara)
+
 ## Usage
 
 See example app: https://github.com/wojtekmach/minitest-capybara-example
