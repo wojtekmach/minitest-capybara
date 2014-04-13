@@ -62,7 +62,7 @@ Or if you prefer to create seperate test class for acceptance tests.
 require "capybara/rails"
 
 # for just minitest/unit
-class AcceptanceTest < Minitest::Unit::TestCase
+class AcceptanceTest < Minitest::Test
   include Capybara::DSL
   include Capybara::Assertions
 
@@ -73,8 +73,14 @@ class AcceptanceTest < Minitest::Unit::TestCase
 end
 
 # for minitest/spec
-class AcceptanceSpec < AcceptanceTest
-  extend Minitest::Spec::DSL
+class AcceptanceSpec < Minitest::Spec
+  include Capybara::DSL
+  include Capybara::Assertions
+
+  def teardown
+    Capybara.reset_session!
+    Capybara.use_default_driver
+  end
 end
 ```
 
