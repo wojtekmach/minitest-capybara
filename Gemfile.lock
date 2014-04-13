@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    minitest-capybara (0.6.0.rc1)
+    minitest-capybara (0.6.0)
       capybara (~> 2.1.0)
       minitest (~> 5.0)
       rake
