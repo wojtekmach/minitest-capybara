@@ -15,6 +15,8 @@ deploy:
   gem: minitest-capybara
   on:
     repo: wojtekmach/minitest-capybara
+before_deploy:
+- echo Deploying...
 
 env:
   global:
