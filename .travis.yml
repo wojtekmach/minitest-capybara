@@ -15,6 +15,7 @@ deploy:
   gem: minitest-capybara
   on:
     repo: wojtekmach/minitest-capybara
+    condition: ./script/unreleased
 before_deploy:
 - echo Deploying...
 
