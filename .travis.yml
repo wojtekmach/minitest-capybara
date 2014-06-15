@@ -1,8 +1,19 @@
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.1.1
-  - 2.1.2
-  - jruby
-  - rbx-2
+- 1.9.3
+- 2.0.0
+- 2.1.0
+- 2.1.1
+- 2.1.2
+- jruby
+- rbx-2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: beHIrfhi+kpvA67zbiMXx5n2qAUaNUz+y3RO3yB19jIiTm4Zol8DRJH9jKO6YpIwLlolTrGVQsmZHqmmXRghv3qZXeYwLdp0mvyMIYc5w10OiRwDzlS1DFogevDszRDpypP7J48oFn2llRt1mw9HyLE83GFQcTEvxUJ+ENLA3tY=
+  gem: minitest-capybara
+  on:
+    repo: wojtekmach/minitest-capybara
+
+env:
+  global:
+    secure: hhFhgyLXEf3CAQdiHhSXi7sS6E0Jo2t7xMz3rExdM8oUH+caKd+V1NOY23JItuljVwXTorOAZyNnvPdAVwwWEGX5haNk3s++YrBaaXb6YAv8isUNgNkthxRwc9h2ILy0R53I3OHrkA9r9DJTPo5hjrmzLtYOQScdxJPt03nKUyo=
