@@ -1,7 +1,7 @@
 module Capybara
   module Assertions
     def self.included(base)
-      raise "Make sure to include Capybara::Minitest::Assertions after Capybara::DSL" unless base < Capybara::DSL
+      raise "Make sure to include Capybara::Assertions after Capybara::DSL" unless base < Capybara::DSL
     end
 
     def assert_text(*args)
