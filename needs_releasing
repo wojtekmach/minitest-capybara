@@ -1,0 +1,8 @@
+#!/bin/sh
+# Exits with 0 if current gem needs releasing, otherwise exits with 1.
+
+if git tag | grep --silent `cat VERSION`; then
+    exit 0
+fi
+
+exit 1
