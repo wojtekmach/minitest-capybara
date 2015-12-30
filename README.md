@@ -27,41 +27,11 @@ Check out [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-c
 
 ## Usage
 
-See example app: https://github.com/wojtekmach/minitest-capybara-example
-
-Add to Gemfile:
-
-```ruby
-# Gemfile
-group :test do
-  gem "minitest-capybara"
-end
-```
-
-```ruby
-# features/my_feature.rb
-require 'test_helper'
-
-feature "My Super Feature" do
-  given(:lion) { ... }
-
-  background do
-    visit "/feature"
-  end
-
-  scenario "this awesome feature" do
-    page.must_have_content("Awesome Feature")
-  end
-end
-```
-
-Or if you prefer to create seperate test class for acceptance tests.
-
 ```ruby
 # test/test_helper.rb
 require "capybara/rails"
 
-# for just minitest/unit
+# for minitest/test
 class AcceptanceTest < Minitest::Test
   include Capybara::DSL
   include Capybara::Assertions
@@ -111,6 +81,8 @@ class HomeTest < AcceptanceSpec
   end
 end
 ```
+
+See: https://github.com/blowmage/minitest-rails-capybara for a nicer DSL that includes `feature/scenario` methods that could be found in `capybara/rails`.
 
 ## Capybara drivers
 
