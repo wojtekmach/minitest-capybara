@@ -3,7 +3,7 @@ cache: bundler
 rvm:
 - 2.1
 - 2.2
-- 2.3
+- 2.3.0
 
 deploy:
   provider: rubygems
@@ -11,8 +11,8 @@ deploy:
     secure: beHIrfhi+kpvA67zbiMXx5n2qAUaNUz+y3RO3yB19jIiTm4Zol8DRJH9jKO6YpIwLlolTrGVQsmZHqmmXRghv3qZXeYwLdp0mvyMIYc5w10OiRwDzlS1DFogevDszRDpypP7J48oFn2llRt1mw9HyLE83GFQcTEvxUJ+ENLA3tY=
   gem: minitest-capybara
   on:
-    repo: wojtekmach/minitest-capybara
-    condition: ./needs_releasing
+    tags: true
+
 before_deploy:
 - echo Deploying...
 
