@@ -1,8 +1,9 @@
 ## HEAD
 
-* Remove depracation for Minitest::Capybara::Assertions
+* Remove depracation for Minitest::Capybara::Assertions.
 * Better error messages for `assert_content/refute_content`.
 * Remove feature DSL.
+* Add Minitest::Capybara::Test and Minitest::Capybara::Spec classes.
 
 ## v0.7.2
 

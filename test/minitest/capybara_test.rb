@@ -2,10 +2,7 @@ require 'test_helper'
 
 Capybara.app = lambda { |env| [200, {}, "<div><h1>foo</h1><a href='/'>bar</a></div>"] }
 
-describe "app" do
-  include Capybara::DSL
-  include Capybara::Assertions
-
+class AppTest < Minitest::Capybara::Spec
   before do
     visit "/"
   end

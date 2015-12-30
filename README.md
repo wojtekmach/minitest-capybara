@@ -23,66 +23,54 @@ With this project minitest gets all the good stuff.
 
 ## Rails integration
 
-Check out [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-capybara)
+`minitest-capybara` (and `capybara`) works with Rails out of the box, remember to require `capybara/rails`.
+
+See example Rails app: <https://github.com/wojtekmach/minitest-capybara-example>.
+
+For more features check out: [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-capybara).
 
 ## Usage
 
-```ruby
-# test/test_helper.rb
-require "capybara/rails"
-
-# for minitest/test
-class AcceptanceTest < Minitest::Test
-  include Capybara::DSL
-  include Capybara::Assertions
-
-  def teardown
-    Capybara.reset_session!
-    Capybara.use_default_driver
-  end
-end
-
-# for minitest/spec
-class AcceptanceSpec < Minitest::Spec
-  include Capybara::DSL
-  include Capybara::Assertions
-
-  def teardown
-    Capybara.reset_session!
-    Capybara.use_default_driver
-  end
-end
-```
-
-and you can use it like this:
+With minitest/test:
 
 ```ruby
-# test/acceptance/home_test.rb
-require "test_helper"
-
-class HomeTest < AcceptanceSpec
-  it "home test" do
+class HomeTest < Minitest::Capybara::Test
+  def test_home
     visit "/"
 
     assert_content "Homepage"
-    page.must_have_content "Homepage"
 
     within ".login" do
       refute_content "Signed in as"
-      page.wont_have_content "Signed in as"
     end
 
     assert_link "Sign in"
     assert_link find(".login"), "Sign in"
-    find(".login").must_have_link("Sign in")
 
     assert_selector 'li:first', text: "Item 1"
-    page.must_have_selector 'li:first', text: "Item 1"
   end
 end
 ```
 
-See: https://github.com/blowmage/minitest-rails-capybara for a nicer DSL that includes `feature/scenario` methods that could be found in `capybara/rails`.
+With minitest/spec:
+
+```ruby
+class HomeSpec < Minitest::Capybara::Spec
+  it "works" do
+    visit "/"
+
+    page.must_have_content "Homepage"
+
+    within ".login" do
+      page.wont_have_content "Signed in as"
+    end
+
+    find(".login").must_have_link("Sign in")
+
+    page.must_have_selector 'li:first', text: "Item 1"
+  end
+end
+```
 
 ## Capybara drivers
 
@@ -93,7 +81,7 @@ Switching drivers is easy with [minitest-metadata]:
 ```ruby
 require 'minitest-metadata'
 
-class AcceptanceSpec
+class AcceptanceSpec < Minitest::Capybara::Spec
   before do
     if metadata[:js]
       Capybara.current_driver = Capybara.javascript_driver
@@ -103,7 +91,7 @@ class AcceptanceSpec
   end
 end
 
-class HomeTest < AcceptanceSpec
+class HomeSpec < AcceptanceSpec
   it "home with ajax", js: true do
     visit "/"
     page.must_have_content "AJAX enabled..."
