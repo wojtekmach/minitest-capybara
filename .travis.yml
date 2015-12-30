@@ -5,6 +5,9 @@ rvm:
 - 2.2
 - 2.3.0
 
+before_install:
+ - gem update bundler
+
 deploy:
   provider: rubygems
   api_key:
