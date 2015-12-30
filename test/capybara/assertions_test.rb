@@ -1,14 +1,8 @@
 require "test_helper"
 
-Capybara.app = lambda { |env| [200, {}, "<div><h1>foo</h1><a href='/'>bar</a></div>"] }
-
 describe "Assertions" do
   include Capybara::DSL
   include Capybara::Assertions
-
-  before do
-    visit "/"
-  end
 
   it "defines all the assertions that Capybara does" do
     Minitest::Capybara.assertions.each do |assertion|
