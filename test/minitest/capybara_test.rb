@@ -14,12 +14,14 @@ describe "app" do
 
   it "supports assert_content" do
     assert_content("foo").must_equal true
-    proc { assert_content("BAD") }.must_raise Minitest::Assertion
+    e = proc { assert_content("BAD") }.must_raise Minitest::Assertion
+    e.message.must_equal "Expected to find text \"BAD\" in \"foobar\"."
   end
 
   it "supports refute_content" do
     refute_content("BAD").must_equal true
-    proc { refute_content("foo") }.must_raise Minitest::Assertion
+    e = proc { refute_content("foo") }.must_raise Minitest::Assertion
+    e.message.must_equal "Expected not to find text \"foo\" in \"foobar\"."
   end
 
   it "supports assert_selector" do
