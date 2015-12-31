@@ -2,13 +2,13 @@
 
 [![Build Status](https://secure.travis-ci.org/wojtekmach/minitest-capybara.png?branch=master)](http://travis-ci.org/wojtekmach/minitest-capybara)
 
-Capybara matchers support for minitest unit & spec
+Capybara matchers support for Minitest unit & spec.
 
 ## Why?
 
 Capybara has good support for RSpec.
 
-If you want to use it with minitest, you can of course write:
+If you want to use it with Minitest, you can of course write:
 
 ```ruby
 assert page.has_content?("Hello")
@@ -19,7 +19,7 @@ but:
 1. it's kinda ugly
 2. you don't have meaningfull error messages.
 
-With this project minitest gets all the good stuff.
+With this project Minitest gets all the good stuff.
 
 ## Rails integration
 
@@ -27,7 +27,7 @@ With this project minitest gets all the good stuff.
 
 See example Rails app: <https://github.com/wojtekmach/minitest-capybara-example>.
 
-For more features check out: [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-capybara).
+For more features, check out: [minitest-rails-capybara](https://github.com/blowmage/minitest-rails-capybara).
 
 ## Usage
 
