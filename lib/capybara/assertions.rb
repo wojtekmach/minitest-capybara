@@ -20,7 +20,7 @@ module Capybara
 
     def assert_selector(*args)
       node, *args = prepare_args(args)
-      node.assert_selector(*args)
+      assert node.assert_selector(*args)
     rescue Capybara::ExpectationNotMet => e
       assert false, e.message
     end
