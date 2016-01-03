@@ -27,7 +27,7 @@ module Capybara
 
     def refute_selector(*args)
       node, *args = prepare_args(args)
-      node.assert_no_selector(*args)
+      assert node.assert_no_selector(*args)
     rescue Capybara::ExpectationNotMet => e
       assert false, e.message
     end
