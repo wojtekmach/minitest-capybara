@@ -1,5 +1,9 @@
 ## HEAD
 
+## v0.8.1
+
+* Do an assertion with `assert_selector`/`refute_selector` call - @joseramonc, @wojtekmach
+
 ## v0.8.0
 
 * Remove deprecation for Minitest::Capybara::Assertions.
