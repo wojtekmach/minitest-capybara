@@ -1,4 +1,5 @@
 require "capybara"
+require "capybara/dsl"
 require "minitest/capybara/version"
 
 module Minitest
