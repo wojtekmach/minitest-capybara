@@ -42,8 +42,8 @@ describe Capybara do
       end
 
       it "supports must_have_content with regexp" do
-        @test_node.must_have_content /simple e-mail/
-        @test_node.must_have_content /just.*tested/
+        @test_node.must_have_content(/simple e-mail/)
+        @test_node.must_have_content(/just.*tested/)
       end
 
       it "wont have Regexp content in a String" do
