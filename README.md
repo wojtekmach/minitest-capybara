@@ -72,6 +72,29 @@ class HomeSpec < Minitest::Capybara::Spec
 end
 ```
 
+Instead of inheriting directly from Minitest::Capybara::Test (or Spec) it's usually better to create a custom test base class:
+
+```ruby
+# test/acceptance_test.rb
+require "minitest/autorun"
+
+class AcceptanceTest < Minitest::Capybara::Test
+  # custom methods, before blocks etc.
+end
+```
+
+If you need to inherit from a different base class (e.g. `ActiveSupport::TestCase`) you can do this instead:
+
+```ruby
+require "test_helper"
+
+class AcceptanceTest < ActiveSupport::TestCase
+  include Minitest::Capybara::Behaviour
+
+  # custom methods, before blocks etc.
+end
+```
+
 ## Capybara drivers
 
 Switching drivers is easy with [minitest-metadata]:
