@@ -25,7 +25,7 @@ require "capybara/expectations"
 
 module Minitest
   module Capybara
-    class Test < Minitest::Test
+    module Behaviour
       include ::Capybara::DSL
       include ::Capybara::Assertions
 
@@ -35,14 +35,12 @@ module Minitest
       end
     end
 
-    class Spec < Minitest::Spec
-      include ::Capybara::DSL
-      include ::Capybara::Assertions
+    class Test < Minitest::Test
+      include Behaviour
+    end
 
-      def teardown
-        ::Capybara.reset_session!
-        ::Capybara.use_default_driver
-      end
+    class Spec < Minitest::Spec
+      include Behaviour
     end
   end
 end
