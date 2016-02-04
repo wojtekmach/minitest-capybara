@@ -22,27 +22,5 @@ end
 # Need to be required after Minitest::Capybara is defined
 require "capybara/assertions"
 require "capybara/expectations"
-
-module Minitest
-  module Capybara
-    class Test < Minitest::Test
-      include ::Capybara::DSL
-      include ::Capybara::Assertions
-
-      def teardown
-        ::Capybara.reset_session!
-        ::Capybara.use_default_driver
-      end
-    end
-
-    class Spec < Minitest::Spec
-      include ::Capybara::DSL
-      include ::Capybara::Assertions
-
-      def teardown
-        ::Capybara.reset_session!
-        ::Capybara.use_default_driver
-      end
-    end
-  end
-end
+require "minitest/capybara/test"
+require "minitest/capybara/spec"
