@@ -1,5 +1,10 @@
 ## HEAD
 
+## v0.8.2
+
+* Explicitly require capybara/dsl
+* Introduce Minitest::Capybara::Behaviour that can be mixed in to test/spec classes
+
 ## v0.8.1
 
 * Do an assertion with `assert_selector`/`refute_selector` call - @joseramonc, @wojtekmach
