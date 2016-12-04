@@ -35,12 +35,14 @@ class AppTest < Minitest::Capybara::Spec
 
   it "supports assert_link" do
     assert_link 'bar'
-    proc { assert_link("BAD") }.must_raise Minitest::Assertion
+    e = proc { assert_link("BAD") }.must_raise Minitest::Assertion
+    e.message.must_equal "expected to find BAD."
   end
 
   it "supports refute_link" do
     refute_link 'BAD'
-    proc { refute_link("bar") }.must_raise Minitest::Assertion
+    e = proc { refute_link("bar") }.must_raise Minitest::Assertion
+    e.message.must_equal "expected not to find bar."
   end
 
   # expectations
