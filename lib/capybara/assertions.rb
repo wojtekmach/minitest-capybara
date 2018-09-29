@@ -38,7 +38,7 @@ module Capybara
       ruby << <<-RUBY
         def assert_#{assertion}(*args)
           node, *args = prepare_args(args)
-          assert node.has_#{assertion}?(*args), message { CapybaraFailureHelpers.failure_message(*args) }
+          assert node.has_#{assertion}?(*args), message { Minitest::Capybara::Helpers.failure_message(*args) }
         end
       RUBY
     end
@@ -46,7 +46,7 @@ module Capybara
       ruby << <<-RUBY
         def refute_#{refutation}(*args)
           node, *args = prepare_args(args)
-          assert node.has_no_#{refutation}?(*args), message { CapybaraFailureHelpers.negative_failure_message(*args) }
+          assert node.has_no_#{refutation}?(*args), message { Minitest::Capybara::Helpers.negative_failure_message(*args) }
         end
         alias_method :assert_no_#{refutation}, :refute_#{refutation}
       RUBY
@@ -288,38 +288,6 @@ module Capybara
         args
       else
         [page, *args]
-      end
-    end
-
-    module CapybaraFailureHelpers
-      def self.failure_message(description, options={})
-        "expected to find #{description}" + count_message(options)
-      end
-
-      def self.negative_failure_message(description, options={})
-        "expected not to find #{description}" + count_message(options)
-      end
-
-      def self.declension(singular, plural, count)
-        if count == 1
-          singular
-        else
-          plural
-        end
-      end
-
-      def self.count_message(options)
-        if options[:count]
-          " #{options[:count]} #{declension('time', 'times', options[:count])}"
-        elsif options[:between]
-          " between #{options[:between].first} and #{options[:between].last} times"
-        elsif options[:maximum]
-          " at most #{options[:maximum]} #{declension('time', 'times', options[:maximum])}"
-        elsif options[:minimum]
-          " at least #{options[:minimum]} #{declension('time', 'times', options[:minimum])}"
-        else
-          ""
-        end
       end
     end
   end
