@@ -293,11 +293,11 @@ module Capybara
 
     module CapybaraFailureHelpers
       def self.failure_message(description, options={})
-        String.new("expected to find #{description}") << count_message(options)
+        "expected to find #{description}" + count_message(options)
       end
 
       def self.negative_failure_message(description, options={})
-        String.new("expected not to find #{description}") << count_message(options)
+        "expected not to find #{description}" + count_message(options)
       end
 
       def self.declension(singular, plural, count)
@@ -309,17 +309,17 @@ module Capybara
       end
 
       def self.count_message(options)
-        message = String.new()
         if options[:count]
-          message << " #{options[:count]} #{declension('time', 'times', options[:count])}"
+          " #{options[:count]} #{declension('time', 'times', options[:count])}"
         elsif options[:between]
-          message << " between #{options[:between].first} and #{options[:between].last} times"
+          " between #{options[:between].first} and #{options[:between].last} times"
         elsif options[:maximum]
-          message << " at most #{options[:maximum]} #{declension('time', 'times', options[:maximum])}"
+          " at most #{options[:maximum]} #{declension('time', 'times', options[:maximum])}"
         elsif options[:minimum]
-          message << " at least #{options[:minimum]} #{declension('time', 'times', options[:minimum])}"
+          " at least #{options[:minimum]} #{declension('time', 'times', options[:minimum])}"
+        else
+          ""
         end
-        message
       end
     end
   end
