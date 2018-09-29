@@ -1,5 +1,10 @@
 ## HEAD
 
+## v0.9.0
+
+* Loosen hard capybara dependency
+* Fix missing failure text in Capybara 2.9+
+
 ## v0.8.2
 
 * Explicitly require capybara/dsl
