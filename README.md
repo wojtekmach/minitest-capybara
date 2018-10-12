@@ -2,6 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/wojtekmach/minitest-capybara.png?branch=master)](http://travis-ci.org/wojtekmach/minitest-capybara)
 
+## :warning: This gem is no longer maintained as Capybara has added Minitest support upstream, use that instead.
+
 Capybara matchers support for Minitest unit & spec.
 
 ## Why?
